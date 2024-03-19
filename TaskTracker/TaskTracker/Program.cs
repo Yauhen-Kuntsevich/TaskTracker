@@ -1,3 +1,13 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using TaskTracker.Models;
 
-Console.WriteLine("Hello, World!");
+namespace TaskTracker;
+
+internal class Program
+{
+    static void Main()
+    {
+        UserTask testTask = new UserTask(1, "Title", "Description", DateTime.Now, PriorityLevel.Medium);
+        Console.WriteLine(testTask.FormatTaskOutput());
+    }
+}
+
