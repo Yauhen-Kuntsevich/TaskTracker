@@ -2,17 +2,23 @@ namespace TaskTracker.Models;
 
 public class UserTask
 {
-    private int _taskId { get; set; }
-    private string _taskTitle { get; set; }
-    private string TaskDescription { get; set; }
-    private DateTime _taskDueDate { get; set; }
-    private PriorityLevel _taskPriority { get; set; }
+    private int _taskId;
+    private string _taskTitle;
+    private string _taskDescription;
+    private DateTime _taskDueDate;
+    private PriorityLevel _taskPriority;
+    
+    public int TaskId { get; set; }
+    public string TaskTitle { get; set; }
+    public string TaskDescription { get; set; }
+    public DateTime TaskDueDate { get; set; }
+    public PriorityLevel TaskPriority { get; set; }
 
     public UserTask(int taskId, string taskTitle, string taskDescription, DateTime taskDueDate, PriorityLevel taskPriority)
     {
         _taskId = taskId;
         _taskTitle = taskTitle;
-        TaskDescription = taskDescription;
+        _taskDescription = taskDescription;
         _taskDueDate = taskDueDate;
         _taskPriority = taskPriority;
     }
@@ -21,7 +27,7 @@ public class UserTask
     {
         string priorityColor = GetPriorityColor(_taskPriority);
         return $"Title: {_taskTitle}\n" +
-               $"Description: {TaskDescription}\n" +
+               $"Description: {_taskDescription}\n" +
                $"Due date: {_taskDueDate}\n" +
                $"Priority: {priorityColor}{_taskPriority}";
     }
