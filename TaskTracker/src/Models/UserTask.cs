@@ -2,21 +2,25 @@ namespace TaskTracker.Models;
 
 public class UserTask
 {
-    private int _taskId;
+    private int _id;
     private string _title;
     private string _description;
     private DateTime _dueDate;
     private PriorityLevel _priority;
-    
-    public int TaskId { get; set; }
-    public string TaskTitle { get; set; }
-    public string TaskDescription { get; set; }
-    public DateTime TaskDueDate { get; set; }
-    public PriorityLevel TaskPriority { get; set; }
 
-    public UserTask(int taskId, string title, string description, DateTime dueDate, PriorityLevel priority)
+    public int Id
     {
-        _taskId = taskId;
+        get { return _id; }
+        set { _id = value; }
+    }
+    public string Title { get; set; }
+    public string Description { get; set; }
+    public DateTime DueDate { get; set; }
+    public PriorityLevel Priority { get; set; }
+
+    public UserTask(int id, string title, string description, DateTime dueDate, PriorityLevel priority)
+    {
+        _id = id;
         _title = title;
         _description = description;
         _dueDate = dueDate;
@@ -26,11 +30,12 @@ public class UserTask
     public string FormatTaskOutput()
     {
         string priorityColor = GetPriorityColor(_priority);
-        return $"-------------------------------------\n" +
+        string regularColor = "\x1b[0m";
+        return $"\n{regularColor}==============================\n\n" +
                $"Title: {_title}\n" +
                $"Description: {_description}\n" +
                $"Due date: {_dueDate}\n" +
-               $"Priority: {priorityColor}{_priority}\n";
+               $"Priority: {priorityColor}{_priority}{regularColor}";
     }
 
     private string GetPriorityColor(PriorityLevel priority)
@@ -40,7 +45,6 @@ public class UserTask
             PriorityLevel.High => "\x1b[31m",
             PriorityLevel.Medium => "\x1b[33m",
             PriorityLevel.Low => "\x1b[32m",
-            _ => "\x1b[0m",
         };
     }
 }

@@ -7,8 +7,8 @@ internal class Program
 {
     static void Main()
     {
-        TaskList taskList = new TaskList();
-        var cli = new TaskCommandLineInterface(taskList);
+        TaskStorage taskStorage = new TaskStorage();
+        var cli = new TaskCommandLineInterface(taskStorage);
         cli.Start();
     }
 }
