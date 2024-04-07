@@ -13,7 +13,7 @@ public class TaskCommandLineInterface
 
     public void Start()
     {
-        
+
         bool isRunning = true;
 
         while (isRunning)
@@ -41,21 +41,21 @@ public class TaskCommandLineInterface
             }
         }
     }
-    
+
     void AddTask(TaskStorage taskStorage)
     {
         Console.Write("Enter a task id: ");
         int id = Convert.ToInt32(Console.ReadLine());
-        
+
         Console.Write("Enter a task title: ");
         string? title = Console.ReadLine();
-        
+
         Console.Write("Enter a task description: ");
         string? description = Console.ReadLine();
-        
+
         Console.Write("Enter a task due date: ");
         DateTime dueDate = DateTime.Parse(Console.ReadLine());
-        
+
         Console.Write("Enter a task priority: ");
         PriorityLevel priority = (PriorityLevel)Enum.Parse(typeof(PriorityLevel), Console.ReadLine(), true);
 
