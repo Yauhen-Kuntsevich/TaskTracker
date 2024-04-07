@@ -5,10 +5,10 @@ public class UserTask
     public int Id { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
-    public DateTime DueDate { get; set; }
+    public DateOnly DueDate { get; set; }
     public PriorityLevel Priority { get; set; }
 
-    public UserTask(int id, string title, string description, DateTime dueDate, PriorityLevel priority)
+    public UserTask(int id, string title, string description, DateOnly dueDate, PriorityLevel priority)
     {
         Id = id;
         Title = title;

@@ -1,27 +1,36 @@
+using TaskTracker.Data;
+
 namespace TaskTracker.Models;
 
 public class TaskStorage
 {
-    private readonly List<UserTask> _tasks = new List<UserTask>();
+    private readonly TaskTrackerContext _context;
+
+    public TaskStorage(TaskTrackerContext context)
+    {
+        _context = context;
+    }
 
     public void AddTask(UserTask task)
     {
-        _tasks.Add(task);
+        _context.Tasks.Add(task);
+        _context.SaveChanges();
     }
 
     public bool RemoveTask(int taskId)
     {
-        var taskToRemove = _tasks.FirstOrDefault(t => t.Id == taskId);
-        if (taskToRemove != null)
+        var taskToRemove = _context.Tasks.FirstOrDefault(t => t.Id == taskId);
+        if (taskToRemove is UserTask)
         {
-            _tasks.Remove(taskToRemove);
+            _context.Tasks.Remove(taskToRemove);
+            _context.SaveChanges();
             return true;
         }
         return false;
     }
-    
+
     public List<UserTask> GetAllTasks()
     {
-        return _tasks;
+        return _context.Tasks.ToList();
     }
 }

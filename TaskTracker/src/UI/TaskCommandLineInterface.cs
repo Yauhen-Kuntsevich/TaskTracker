@@ -13,12 +13,11 @@ public class TaskCommandLineInterface
 
     public void Start()
     {
-
         bool isRunning = true;
 
         while (isRunning)
         {
-            Console.Write("Enter your command(add, list, remove, exit): ");
+            Console.Write("\nEnter your command(add, list, remove, exit): ");
             string command = Console.ReadLine().ToLower();
 
             switch (command)
@@ -54,7 +53,7 @@ public class TaskCommandLineInterface
         string? description = Console.ReadLine();
 
         Console.Write("Enter a task due date: ");
-        DateTime dueDate = DateTime.Parse(Console.ReadLine());
+        DateOnly dueDate = DateOnly.Parse(Console.ReadLine());
 
         Console.Write("Enter a task priority: ");
         PriorityLevel priority = (PriorityLevel)Enum.Parse(typeof(PriorityLevel), Console.ReadLine(), true);
