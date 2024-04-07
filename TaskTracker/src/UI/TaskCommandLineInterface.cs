@@ -17,8 +17,7 @@ public class TaskCommandLineInterface
 
         while (isRunning)
         {
-            Console.Write("\nEnter your command(add, alist, flist, remove, exit): ");
-            string command = Console.ReadLine().Trim().ToLower();
+            string command = ReadCorrectString("\nEnter your command(add, alist, flist, remove, exit): ").Trim().ToLower();
 
             switch (command)
             {
@@ -49,17 +48,13 @@ public class TaskCommandLineInterface
 
     private void AddTask(TaskStorage taskStorage)
     {
-        Console.Write("Enter a task title: ");
-        string? title = Console.ReadLine();
+        string title = ReadCorrectString("Enter a task title: ");
 
-        Console.Write("Enter a task description: ");
-        string? description = Console.ReadLine();
+        string description = ReadCorrectString("Enter a task description: ");
 
-        Console.Write("Enter a task due date: ");
-        DateOnly dueDate = DateOnly.Parse(Console.ReadLine());
+        DateOnly dueDate = ReadCorrectDate("Enter a task due date: ");
 
-        Console.Write("Enter a task priority: ");
-        PriorityLevel priority = (PriorityLevel)Enum.Parse(typeof(PriorityLevel), Console.ReadLine(), true);
+        PriorityLevel priority = ReadCorrectPriority("Enter a task priority: ");
 
         var newTask = new UserTask(title, description, dueDate, priority);
         taskStorage.AddTask(newTask);
@@ -90,7 +85,7 @@ public class TaskCommandLineInterface
         if (wasFinished)
         {
             _taskStorage.FinishTask(taskId);
-            Console.WriteLine($"Task {_taskStorage.GetAllFinishedTasks().FirstOrDefault(t => t.Id == taskId).Title} was finished!");
+            Console.WriteLine($"Task was finished!");
         }
         else
         {
@@ -129,5 +124,46 @@ public class TaskCommandLineInterface
         {
             Console.WriteLine(task.FormatTaskOutput());
         }
+    }
+
+    private string ReadCorrectString(string prompt)
+    {
+        string? input;
+
+        do
+        {
+            Console.Write(prompt);
+            input = Console.ReadLine();
+        } while (string.IsNullOrEmpty(input));
+
+        return input;
+    }
+
+    private DateOnly ReadCorrectDate(string prompt)
+    {
+        string? input;
+        DateOnly date;
+
+        do
+        {
+            Console.Write(prompt);
+            input = Console.ReadLine();
+        } while (!DateOnly.TryParse(input, out date));
+
+        return date;
+    }
+
+    private PriorityLevel ReadCorrectPriority(string prompt)
+    {
+        string? input;
+        PriorityLevel priority;
+
+        do
+        {
+            Console.Write(prompt);
+            input = Console.ReadLine();
+        } while (!Enum.TryParse(input, true, out priority));
+
+        return priority;
     }
 }
