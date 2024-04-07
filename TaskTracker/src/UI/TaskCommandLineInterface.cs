@@ -18,7 +18,7 @@ public class TaskCommandLineInterface
         while (isRunning)
         {
             Console.Write("\nEnter your command(add, alist, flist, remove, exit): ");
-            string command = Console.ReadLine().ToLower();
+            string command = Console.ReadLine().Trim().ToLower();
 
             switch (command)
             {
@@ -47,7 +47,7 @@ public class TaskCommandLineInterface
         }
     }
 
-    void AddTask(TaskStorage taskStorage)
+    private void AddTask(TaskStorage taskStorage)
     {
         Console.Write("Enter a task title: ");
         string? title = Console.ReadLine();
@@ -65,7 +65,7 @@ public class TaskCommandLineInterface
         taskStorage.AddTask(newTask);
     }
 
-    void RemoveTask()
+    private void RemoveTask()
     {
         Console.Write("Enter id of task you want to remove: ");
         int taskId = Convert.ToInt32(Console.ReadLine());
@@ -80,7 +80,7 @@ public class TaskCommandLineInterface
         }
     }
 
-    void FinishTask()
+    private void FinishTask()
     {
         Console.Write("Enter id of task you want to finish: ");
         int taskId = Convert.ToInt32(Console.ReadLine());
@@ -99,7 +99,7 @@ public class TaskCommandLineInterface
 
     }
 
-    void ListActiveTasks()
+    private void ListActiveTasks()
     {
         List<UserTask> activeTasks = _taskStorage.GetAllActiveTasks();
 
@@ -115,7 +115,7 @@ public class TaskCommandLineInterface
         }
     }
 
-    void ListFinishedTasks()
+    private void ListFinishedTasks()
     {
         List<UserTask> finishedTasks = _taskStorage.GetAllFinishedTasks();
 

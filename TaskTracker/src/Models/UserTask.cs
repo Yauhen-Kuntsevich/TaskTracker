@@ -20,24 +20,30 @@ public class UserTask
 
     public string FormatTaskOutput()
     {
+        const string ESC = "\u001b[";
+        const string RESET = ESC + "0m";
+        const string BOLD = ESC + "1m";
+
         string priorityColor = GetPriorityColor(Priority);
-        string regularColor = "\x1b[0m";
+        string regularColor = "\u001b[0m";
+
         return $"\n{regularColor}==============================\n\n" +
-               $"Id: {Id}\n" +
-               $"Title: {Title}\n" +
-               $"Description: {Description}\n" +
-               $"Due date: {DueDate}\n" +
-               $"Priority: {priorityColor}{Priority}{regularColor}";
+               $"{BOLD}Id{RESET}: {Id}{RESET}\n" +
+               $"{BOLD}Title{RESET}: {Title}\n" +
+               $"{BOLD}Description{RESET}: {Description}\n" +
+               $"{BOLD}Due date{RESET}: {DueDate}\n" +
+               $"{BOLD}Priority{RESET}: {priorityColor}{Priority}{regularColor}\n" +
+               $"{BOLD}Status{RESET}: {Status}\n";
     }
 
     private string GetPriorityColor(PriorityLevel priority)
     {
         return priority switch
         {
-            PriorityLevel.High => "\x1b[31m",
-            PriorityLevel.Medium => "\x1b[33m",
-            PriorityLevel.Low => "\x1b[32m",
-            _ => "\x1b[0m",
+            PriorityLevel.High => "\u001b[31m",
+            PriorityLevel.Medium => "\u001b[33m",
+            PriorityLevel.Low => "\u001b[32m",
+            _ => "\u001b[0m",
         };
     }
 }
