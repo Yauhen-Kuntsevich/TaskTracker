@@ -17,7 +17,7 @@ public class TaskCommandLineInterface
 
         while (isRunning)
         {
-            Console.Write("\nEnter your command(add, list, remove, exit): ");
+            Console.Write("\nEnter your command(add, alist, flist, remove, exit): ");
             string command = Console.ReadLine().ToLower();
 
             switch (command)
@@ -28,8 +28,14 @@ public class TaskCommandLineInterface
                 case "remove":
                     RemoveTask();
                     break;
-                case "list":
-                    ListTasks();
+                case "finish":
+                    FinishTask();
+                    break;
+                case "alist":
+                    ListActiveTasks();
+                    break;
+                case "flist":
+                    ListFinishedTasks();
                     break;
                 case "exit":
                     isRunning = false;
@@ -74,16 +80,52 @@ public class TaskCommandLineInterface
         }
     }
 
-    void ListTasks()
+    void FinishTask()
     {
-        List<UserTask> tasks = _taskStorage.GetAllTasks();
-        if (tasks.Count == 0)
+        Console.Write("Enter id of task you want to finish: ");
+        int taskId = Convert.ToInt32(Console.ReadLine());
+
+        var wasFinished = _taskStorage.FinishTask(taskId);
+
+        if (wasFinished)
+        {
+            _taskStorage.FinishTask(taskId);
+            Console.WriteLine($"Task {_taskStorage.GetAllFinishedTasks().FirstOrDefault(t => t.Id == taskId).Title} was finished!");
+        }
+        else
+        {
+            Console.WriteLine("This task is not found");
+        }
+
+    }
+
+    void ListActiveTasks()
+    {
+        List<UserTask> activeTasks = _taskStorage.GetAllActiveTasks();
+
+        if (activeTasks.Count == 0)
         {
             Console.WriteLine("Tasks list is empty!");
             return;
         }
 
-        foreach (var task in tasks)
+        foreach (var task in activeTasks)
+        {
+            Console.WriteLine(task.FormatTaskOutput());
+        }
+    }
+
+    void ListFinishedTasks()
+    {
+        List<UserTask> finishedTasks = _taskStorage.GetAllFinishedTasks();
+
+        if (finishedTasks.Count == 0)
+        {
+            Console.WriteLine("\nFinished tasks list is empty!");
+            return;
+        }
+
+        foreach (var task in finishedTasks)
         {
             Console.WriteLine(task.FormatTaskOutput());
         }

@@ -7,6 +7,7 @@ public class UserTask
     public string Description { get; set; }
     public DateOnly DueDate { get; set; }
     public PriorityLevel Priority { get; set; }
+    public TaskStatus Status { get; set; }
 
     public UserTask(string title, string description, DateOnly dueDate, PriorityLevel priority)
     {
@@ -14,6 +15,7 @@ public class UserTask
         Description = description;
         DueDate = dueDate;
         Priority = priority;
+        Status = TaskStatus.Active;
     }
 
     public string FormatTaskOutput()
@@ -35,6 +37,7 @@ public class UserTask
             PriorityLevel.High => "\x1b[31m",
             PriorityLevel.Medium => "\x1b[33m",
             PriorityLevel.Low => "\x1b[32m",
+            _ => "\x1b[0m",
         };
     }
 }
@@ -44,4 +47,10 @@ public enum PriorityLevel
     Low,
     Medium,
     High,
+}
+
+public enum TaskStatus
+{
+    Active,
+    Finished,
 }

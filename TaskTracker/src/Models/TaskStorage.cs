@@ -29,8 +29,27 @@ public class TaskStorage
         return false;
     }
 
-    public List<UserTask> GetAllTasks()
+    public bool FinishTask(int taskId)
     {
-        return _context.Tasks.ToList();
+        var task = _context.Tasks.FirstOrDefault(t => t.Id == taskId);
+
+        if (task is UserTask)
+        {
+            task.Status = TaskStatus.Finished;
+            _context.SaveChanges();
+            return true;
+        }
+
+        return false;
+    }
+
+    public List<UserTask> GetAllActiveTasks()
+    {
+        return _context.Tasks.Where(t => t.Status == TaskStatus.Active).ToList();
+    }
+
+    public List<UserTask> GetAllFinishedTasks()
+    {
+        return _context.Tasks.Where(t => t.Status == TaskStatus.Finished).ToList();
     }
 }
