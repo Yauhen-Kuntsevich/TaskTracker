@@ -43,9 +43,6 @@ public class TaskCommandLineInterface
 
     void AddTask(TaskStorage taskStorage)
     {
-        Console.Write("Enter a task id: ");
-        int id = Convert.ToInt32(Console.ReadLine());
-
         Console.Write("Enter a task title: ");
         string? title = Console.ReadLine();
 
@@ -58,7 +55,7 @@ public class TaskCommandLineInterface
         Console.Write("Enter a task priority: ");
         PriorityLevel priority = (PriorityLevel)Enum.Parse(typeof(PriorityLevel), Console.ReadLine(), true);
 
-        var newTask = new UserTask(id, title, description, dueDate, priority);
+        var newTask = new UserTask(title, description, dueDate, priority);
         taskStorage.AddTask(newTask);
     }
 

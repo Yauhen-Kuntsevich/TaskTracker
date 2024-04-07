@@ -8,9 +8,8 @@ public class UserTask
     public DateOnly DueDate { get; set; }
     public PriorityLevel Priority { get; set; }
 
-    public UserTask(int id, string title, string description, DateOnly dueDate, PriorityLevel priority)
+    public UserTask(string title, string description, DateOnly dueDate, PriorityLevel priority)
     {
-        Id = id;
         Title = title;
         Description = description;
         DueDate = dueDate;
@@ -22,6 +21,7 @@ public class UserTask
         string priorityColor = GetPriorityColor(Priority);
         string regularColor = "\x1b[0m";
         return $"\n{regularColor}==============================\n\n" +
+               $"Id: {Id}\n" +
                $"Title: {Title}\n" +
                $"Description: {Description}\n" +
                $"Due date: {DueDate}\n" +
