@@ -15,9 +15,18 @@ public class TaskCommandLineInterface
     {
         bool isRunning = true;
 
+        string rulesOfUse = "\n" + new string('=', 30) + "\n" +
+                            "Available commands:\n" +
+                            "\t'add' to add new task;\n" +
+                            "\t'alist' to print list of active tasks;\n" +
+                            "\t'flist' to print list of finished tasks;\n" +
+                            "\t'remove' to remove task;\n" +
+                            "\t'exit' to stop application.\n";
+        Console.WriteLine(rulesOfUse);
+
         while (isRunning)
         {
-            string command = ReadCorrectString("\nEnter your command(add, alist, flist, remove, exit): ").Trim().ToLower();
+            string command = ReadCorrectString("\nEnter your command (add, alist, flist, remove, exit): ").Trim().ToLower();
 
             switch (command)
             {
